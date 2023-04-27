@@ -1,4 +1,4 @@
-package com.rainofpainki.hairsalonapi.domain.shop.domain;
+package com.rainofpainki.hairsalonapi.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class Shop {
     @Id
     @GeneratedValue(generator = "shop_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "shop_seq", allocationSize = 1, sequenceName = "SHOP_SEQ")
-    private int shopId;
+    private Long shopId;
     private String shopName;
     private String shopThumbUrl;
     private String shopAddress;
