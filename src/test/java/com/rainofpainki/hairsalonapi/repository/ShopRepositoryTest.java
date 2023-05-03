@@ -1,7 +1,6 @@
 package com.rainofpainki.hairsalonapi.repository;
 
-import com.rainofpainki.hairsalonapi.dto.ShopListDto;
-import com.rainofpainki.hairsalonapi.entity.Shop;
+import com.rainofpainki.hairsalonapi.dto.projection.ShopListProjection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +15,7 @@ public class ShopRepositoryTest {
 
     @Test
     public void queryDslFindAllTest() {
-        List<ShopListDto> shopList = shopRepository.queryDslFindAll();
+        List<ShopListProjection> shopList = shopRepository.queryDslFindAll();
         shopList.iterator().forEachRemaining(shop -> {
             System.out.println("shop => " + shop);
         });

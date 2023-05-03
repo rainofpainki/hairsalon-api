@@ -1,13 +1,14 @@
 package com.rainofpainki.hairsalonapi.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.rainofpainki.hairsalonapi.dto.QShopListDto;
-import com.rainofpainki.hairsalonapi.dto.ShopListDto;
+import com.rainofpainki.hairsalonapi.dto.projection.QShopListProjection;
+import com.rainofpainki.hairsalonapi.dto.projection.ShopListProjection;
 import org.springframework.stereotype.Repository;
-import static com.rainofpainki.hairsalonapi.entity.QShop.shop;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+
+import static com.rainofpainki.hairsalonapi.entity.QShop.shop;
 
 @Repository
 public class ShopRepositoryImpl implements ShopRepositoryCustom {
@@ -19,8 +20,8 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     }
 
     @Override
-    public List<ShopListDto> queryDslFindAll() {
-        return queryFactory.select(new QShopListDto(
+    public List<ShopListProjection> queryDslFindAll() {
+        return queryFactory.select(new QShopListProjection(
                 shop.shopId,
                 shop.shopName,
                 shop.shopThumbUrl,

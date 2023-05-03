@@ -1,4 +1,4 @@
-package com.rainofpainki.hairsalonapi.dto;
+package com.rainofpainki.hairsalonapi.dto.projection;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ShopListDto {
+public class ShopListProjection {
     private Long shopId;
     private String shopName;
     private String shopThumbUrl;
@@ -18,7 +18,7 @@ public class ShopListDto {
     private String shopTelNumber;
 
     @QueryProjection
-    public ShopListDto(final Long shopId, final String shopName, final String shopThumbUrl, final String shopAddress, final String shopStartHourOfWeekday, final String shopEndHourOfWeekday, final String shopStartHourOfWeekend, final String shopEndHourOfWeekend, final String shopTelNumber) {
+    public ShopListProjection(final Long shopId, final String shopName, final String shopThumbUrl, final String shopAddress, final String shopStartHourOfWeekday, final String shopEndHourOfWeekday, final String shopStartHourOfWeekend, final String shopEndHourOfWeekend, final String shopTelNumber) {
         this.shopId = shopId;
         this.shopName = shopName;
         this.shopThumbUrl = shopThumbUrl;
