@@ -15,10 +15,11 @@ public class ShopListProjection {
     private String shopEndHourOfWeekday;
     private String shopStartHourOfWeekend;
     private String shopEndHourOfWeekend;
+    private Integer shopHolidayOfWeek;
     private String shopTelNumber;
 
     @QueryProjection
-    public ShopListProjection(final Long shopId, final String shopName, final String shopThumbUrl, final String shopAddress, final String shopStartHourOfWeekday, final String shopEndHourOfWeekday, final String shopStartHourOfWeekend, final String shopEndHourOfWeekend, final String shopTelNumber) {
+    public ShopListProjection(final Long shopId, final String shopName, final String shopThumbUrl, final String shopAddress, final String shopStartHourOfWeekday, final String shopEndHourOfWeekday, final String shopStartHourOfWeekend, final String shopEndHourOfWeekend, final Integer shopHolidayOfWeek, final String shopTelNumber) {
         this.shopId = shopId;
         this.shopName = shopName;
         this.shopThumbUrl = shopThumbUrl;
@@ -27,6 +28,7 @@ public class ShopListProjection {
         this.shopEndHourOfWeekday = shopEndHourOfWeekday;
         this.shopStartHourOfWeekend = shopStartHourOfWeekend;
         this.shopEndHourOfWeekend = shopEndHourOfWeekend;
+        this.shopHolidayOfWeek = shopHolidayOfWeek;
         this.shopTelNumber = shopTelNumber;
     }
 }

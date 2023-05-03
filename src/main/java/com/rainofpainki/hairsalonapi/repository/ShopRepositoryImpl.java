@@ -30,6 +30,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                 shop.shopEndHourOfWeekday,
                 shop.shopStartHourOfWeekend,
                 shop.shopEndHourOfWeekend,
+                shop.shopHolidayOfWeek,
                 shop.shopTelNumber
         )).from(shop)
         .fetch();
