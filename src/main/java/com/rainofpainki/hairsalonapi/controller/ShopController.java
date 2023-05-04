@@ -1,7 +1,7 @@
 package com.rainofpainki.hairsalonapi.controller;
 
 import com.rainofpainki.hairsalonapi.dto.response.ShopListResponse;
-import com.rainofpainki.hairsalonapi.service.ShopServiceImpl;
+import com.rainofpainki.hairsalonapi.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +14,11 @@ import java.util.List;
 public class ShopController {
 
     @Autowired
-    ShopServiceImpl shopServiceImpl;
+    private ShopService shopService;
 
     @GetMapping("")
     public List<ShopListResponse> getShopList() {
-        return shopServiceImpl.getShopList();
+        return shopService.getShopList();
     }
 
 }
