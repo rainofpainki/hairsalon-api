@@ -18,7 +18,6 @@ public class ShopForListServiceTest {
     @Test
     public void should_get_shop_list() {
         List<ShopForList> shopList = shopService.getShopList();
-        Assertions.assertTrue(shopList.size() == 3);
-        Assertions.assertTrue(true);
+        Assertions.assertEquals(shopList.size(), 3);
     }
 }
