@@ -1,9 +1,9 @@
 package com.rainofpainki.hairsalonapi.repository;
 
-import com.rainofpainki.hairsalonapi.dto.projection.ShopListProjection;
+import com.rainofpainki.hairsalonapi.entity.Shop;
 
 import java.util.List;
 
 public interface ShopRepositoryCustom {
-    List<ShopListProjection> queryDslFindAll();
+    List<Shop> queryDslFindAll();
 }

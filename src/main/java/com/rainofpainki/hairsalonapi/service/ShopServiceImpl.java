@@ -1,14 +1,16 @@
 package com.rainofpainki.hairsalonapi.service;
 
-import com.rainofpainki.hairsalonapi.dto.projection.ShopListProjection;
-import com.rainofpainki.hairsalonapi.dto.response.ShopListResponse;
+import com.rainofpainki.hairsalonapi.entity.Shop;
 import com.rainofpainki.hairsalonapi.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -16,12 +18,13 @@ public class ShopServiceImpl implements ShopService {
     @Autowired
     ShopRepository shopRepository;
 
-    /**
-     * 헤어샵의 영업시간 데이터를 반환한다.
-     * @param shop
-     * @return
-     */
-    private Map<String, String> getBusinessHours(ShopListProjection shop) {
+    @Override
+    public List<Shop> getShopList() {
+        return shopRepository.queryDslFindAll();
+    }
+
+    // 영업시간을 요구사항에 맞게 HashMap으로 변환한다.
+    private Map<String, String> getBusinessHours(Shop shop) {
         DayOfWeek[] dayOfWeeks = DayOfWeek.values();
         Map<String, String> businessHours = new HashMap<>();
         for(DayOfWeek dayOfWeek : dayOfWeeks) {
@@ -39,28 +42,5 @@ public class ShopServiceImpl implements ShopService {
             businessHours.put(key, value);
         }
         return businessHours;
-    }
-
-    /**
-     * 헤어샵의 목록을 반환한다.
-     * @return
-     */
-    public List<ShopListResponse> getShopList() {
-        List<ShopListProjection> shopList = shopRepository.queryDslFindAll();
-        List<ShopListResponse> shopResponseList = new ArrayList<>();
-        
-        for(ShopListProjection shop : shopList) {
-            shopResponseList.add(
-                ShopListResponse.builder()
-                        .shopId(shop.getShopId())
-                        .shopName(shop.getShopName())
-                        .shopThumbUrl(shop.getShopThumbUrl())
-                        .shopAddress(shop.getShopAddress())
-                        .shopBusinessHours(this.getBusinessHours(shop))
-                        .shopTelNumber(shop.getShopTelNumber())
-                        .build()
-            );
-        }
-        return shopResponseList;
     }
 }

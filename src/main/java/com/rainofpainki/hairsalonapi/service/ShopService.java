@@ -1,10 +1,10 @@
 package com.rainofpainki.hairsalonapi.service;
 
-import com.rainofpainki.hairsalonapi.dto.response.ShopListResponse;
+import com.rainofpainki.hairsalonapi.entity.Shop;
 
 import java.util.List;
 
 public interface ShopService {
 
-    public List<ShopListResponse> getShopList();
+    public List<Shop> getShopList();
 }
