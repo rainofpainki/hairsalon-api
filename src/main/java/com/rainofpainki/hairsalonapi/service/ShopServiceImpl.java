@@ -4,6 +4,9 @@ import com.rainofpainki.hairsalonapi.dto.ShopForList;
 import com.rainofpainki.hairsalonapi.entity.Shop;
 import com.rainofpainki.hairsalonapi.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -17,8 +20,8 @@ public class ShopServiceImpl implements ShopService {
     ShopRepository shopRepository;
 
     @Override
-    public List<ShopForList> getShopList() {
-        List<Shop> entities = shopRepository.findAll();
+    public Page<ShopForList> getShopList(Pageable pageable) {
+        Page<Shop> entities = shopRepository.findAll(pageable);
         List<ShopForList> shopList = new ArrayList<>();
         for(Shop shop : entities) {
             shopList.add(
@@ -32,7 +35,7 @@ public class ShopServiceImpl implements ShopService {
                         .build()
             );
         }
-        return shopList;
+        return new PageImpl<>(shopList, pageable, entities.getTotalElements());
     }
 
     // 영업시간을 요구사항에 맞게 HashMap으로 변환한다.

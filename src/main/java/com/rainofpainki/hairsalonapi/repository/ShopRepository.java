@@ -1,7 +1,9 @@
 package com.rainofpainki.hairsalonapi.repository;
 
 import com.rainofpainki.hairsalonapi.entity.Shop;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-public interface ShopRepository extends JpaRepository<Shop, Long>, ShopRepositoryCustom {
+public interface ShopRepository{
+    Page<Shop> findAll(Pageable pageable);
 }

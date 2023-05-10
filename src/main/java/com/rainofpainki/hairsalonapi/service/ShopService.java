@@ -1,11 +1,10 @@
 package com.rainofpainki.hairsalonapi.service;
 
 import com.rainofpainki.hairsalonapi.dto.ShopForList;
-import com.rainofpainki.hairsalonapi.entity.Shop;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ShopService {
 
-    public List<ShopForList> getShopList();
+    public Page<ShopForList> getShopList(Pageable pageable);
 }
