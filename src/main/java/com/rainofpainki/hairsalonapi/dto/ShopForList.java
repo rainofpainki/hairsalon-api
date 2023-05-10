@@ -1,17 +1,13 @@
-package com.rainofpainki.hairsalonapi.dto.response;
+package com.rainofpainki.hairsalonapi.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Builder
-public class ShopListResponse {
+public class ShopForList {
     private Long shopId;
     private String shopName;
     private String shopThumbUrl;

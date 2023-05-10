@@ -18,7 +18,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     }
 
     @Override
-    public List<Shop> queryDslFindAll() {
+    public List<Shop> findAll() {
         return queryFactory.selectFrom(QShop.shop).fetch();
     }
 }
