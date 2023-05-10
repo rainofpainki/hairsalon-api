@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,4 +30,10 @@ public class Shop {
     private String shopTelNumber;
     private String shopMessage;
     private Integer shopHolidayOfWeek;
+
+    @OneToMany(mappedBy = "shop")
+    List<Procedure> procedures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shop")
+    List<Stylist> stylists = new ArrayList<>();
 }
