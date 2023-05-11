@@ -16,3 +16,15 @@ Insert into SHOP (SHOP_ID,SHOP_NAME,SHOP_THUMB_URL,SHOP_ADDRESS,SHOP_START_HOUR_
 2.더욱 더 좋은 기술력으로 더 많이 배우고 더 많은 노력으로 보답하겠습니다
 
 3.시술 전 상담에 최선을 다하며 친절한 매장이 되겠습니다',2)/
+
+Insert into "PROCEDURE" (PROCEDURE_ID,SHOP_ID,PROCEDURE_NAME,PROCEDURE_PRICE,PROCEDURE_HOURS) values (1, 1, '여성커트', 18000, 1)/
+Insert into "PROCEDURE" (PROCEDURE_ID,SHOP_ID,PROCEDURE_NAME,PROCEDURE_PRICE,PROCEDURE_HOURS) values (2, 1, '맨즈디자인펌', 55000, 2)/
+Insert into "PROCEDURE" (PROCEDURE_ID,SHOP_ID,PROCEDURE_NAME,PROCEDURE_PRICE,PROCEDURE_HOURS) values (3, 1, '남성볼륨매직', 66000, 2)/
+Insert into "PROCEDURE" (PROCEDURE_ID,SHOP_ID,PROCEDURE_NAME,PROCEDURE_PRICE,PROCEDURE_HOURS) values (4, 1, '뿌리염색', 44000, 2)/
+
+Insert into STYLIST (STYLIST_ID,SHOP_ID,STYLIST_NAME,STYLIST_MESSAGE,STYLIST_THUMB_URL) values (1, 1, '영우 디자이너', '안녕하세요.', '/images/stylist1.jpg')/
+Insert into STYLIST (STYLIST_ID,SHOP_ID,STYLIST_NAME,STYLIST_MESSAGE,STYLIST_THUMB_URL) values (2, 1, '보라 디자이너', '안녕하세요.', '/images/stylist2.jpg')/
+Insert into STYLIST (STYLIST_ID,SHOP_ID,STYLIST_NAME,STYLIST_MESSAGE,STYLIST_THUMB_URL) values (3, 1, '유나 디자이너', '안녕하세요.', '/images/stylist3.jpg')/
+Insert into STYLIST (STYLIST_ID,SHOP_ID,STYLIST_NAME,STYLIST_MESSAGE,STYLIST_THUMB_URL) values (4, 1, '정훈 디자이너', '안녕하세요.', '/images/stylist4.jpg')/
+Insert into STYLIST (STYLIST_ID,SHOP_ID,STYLIST_NAME,STYLIST_MESSAGE,STYLIST_THUMB_URL) values (5, 1, '철희 디자이너', '안녕하세요.', '/images/stylist5.jpg')/
+Insert into STYLIST (STYLIST_ID,SHOP_ID,STYLIST_NAME,STYLIST_MESSAGE,STYLIST_THUMB_URL) values (6, 1, '소라 디자이너', '안녕하세요.', '/images/stylist6.jpg')/
