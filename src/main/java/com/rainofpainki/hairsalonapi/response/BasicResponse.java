@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @Setter
 @RequiredArgsConstructor
 public abstract class BasicResponse{
-    Integer code;
-    HttpStatus httpStatus;
-    String message;
+    protected Integer code;
+    protected HttpStatus httpStatus;
+    protected String message;
 }

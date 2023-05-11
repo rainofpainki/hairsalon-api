@@ -11,5 +11,5 @@ import org.springframework.data.domain.Page;
 @Setter
 @RequiredArgsConstructor
 public class PageableResponse extends BasicResponse {
-    Page data;
+    protected Page data;
 }

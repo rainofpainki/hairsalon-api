@@ -32,7 +32,8 @@ public class ShopController {
                 .data(shopList)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
-
     }
+
+
 
 }
