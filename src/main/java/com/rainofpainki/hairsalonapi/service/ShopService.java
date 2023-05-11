@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
@@ -17,10 +18,11 @@ import java.util.*;
 public class ShopService {
 
     @Autowired
-    ShopRepository shopRepository;
+    ShopRepository repository;
 
+    @Transactional(readOnly = true)
     public Page<ShopForList> getShopList(Pageable pageable) {
-        Page<Shop> entities = shopRepository.findAll(pageable);
+        Page<Shop> entities = repository.findAll(pageable);
         List<ShopForList> shopList = new ArrayList<>();
         for(Shop shop : entities) {
             shopList.add(
