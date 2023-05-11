@@ -1,7 +1,9 @@
 package com.rainofpainki.hairsalonapi.service;
 
-import com.rainofpainki.hairsalonapi.dto.ShopForList;
+import com.rainofpainki.hairsalonapi.dto.*;
+import com.rainofpainki.hairsalonapi.entity.Procedure;
 import com.rainofpainki.hairsalonapi.entity.Shop;
+import com.rainofpainki.hairsalonapi.entity.Stylist;
 import com.rainofpainki.hairsalonapi.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,56 @@ public class ShopService {
             );
         }
         return new PageImpl<>(shopList, pageable, entities.getTotalElements());
+    }
+
+    @Transactional(readOnly = true)
+    public ShopInfo getShopInfo(Long id) {
+        Optional<Shop> shopOptional = repository.findById(id);
+        Shop shopEntity = shopOptional.orElseThrow(() -> new NoSuchElementException());
+
+        // 헤어샵 정보
+        ShopForShopInfo shop = ShopForShopInfo.builder()
+                .shopId(shopEntity.getShopId())
+                .shopName(shopEntity.getShopName())
+                .shopThumbUrl(shopEntity.getShopThumbUrl())
+                .shopAddress(shopEntity.getShopAddress())
+                .shopBusinessHours(this.getBusinessHours(shopEntity))
+                .shopTelNumber(shopEntity.getShopTelNumber())
+                .shopMessage(shopEntity.getShopMessage())
+                .build();
+
+        // 시술 정보
+        List<ProcedureForShopInfo> procedures = new ArrayList<>();
+        List<Procedure> procedureEntities = shopEntity.getProcedures();
+        for(Procedure procedureEntity : procedureEntities) {
+            procedures.add(ProcedureForShopInfo.builder()
+                    .procedureId(procedureEntity.getProcedureId())
+                    .procedureName(procedureEntity.getProcedureName())
+                    .procedurePrice(procedureEntity.getProcedurePrice())
+                    .procedureHours(procedureEntity.getProcedureHours())
+                    .build()
+            );
+        }
+
+        // 스타일리스트 정보
+        List<StylistForShopInfo> stylists = new ArrayList<>();
+        List<Stylist> stylistEntities = shopEntity.getStylists();
+        for(Stylist stylistEntity : stylistEntities) {
+            stylists.add(StylistForShopInfo.builder()
+                    .stylistId(stylistEntity.getStylistId())
+                    .stylistName(stylistEntity.getStylistName())
+                    .stylistMessage(stylistEntity.getStylistMessage())
+                    .stylistThumbUrl(stylistEntity.getStylistThumbUrl())
+                    .build()
+            );
+        }
+
+        return ShopInfo.builder()
+                .shop(shop)
+                .procedures(procedures)
+                .stylists(stylists)
+                .build();
+
     }
 
     // 영업시간을 요구사항에 맞게 HashMap으로 변환한다.
