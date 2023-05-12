@@ -41,17 +41,17 @@ public class ShopController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DataResponse> getShopInfo(@PathVariable("id") Long id) {
-        DataResponse body = null;
+        DataResponse response = null;
         try {
             ShopInfo shopInfo = service.getShopInfo(id);
-            body = DataResponse.builder()
+            response = DataResponse.builder()
                     .code(HttpStatus.OK.value())
                     .httpStatus(HttpStatus.OK)
                     .message("success")
                     .data(shopInfo)
                     .build();
         } catch(NoSuchElementException e) {}
-        return (body == null ? ResponseEntity.status(HttpStatus.NOT_FOUND) : ResponseEntity.ok()).body(body);
+        return (response == null ? ResponseEntity.status(HttpStatus.NOT_FOUND) : ResponseEntity.ok()).body(response);
     }
 
 }
