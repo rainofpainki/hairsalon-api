@@ -2,8 +2,8 @@ package com.rainofpainki.hairsalonapi.controller;
 
 import com.rainofpainki.hairsalonapi.dto.ShopForList;
 import com.rainofpainki.hairsalonapi.dto.ShopInfo;
-import com.rainofpainki.hairsalonapi.response.DataResponse;
-import com.rainofpainki.hairsalonapi.response.PageableResponse;
+import com.rainofpainki.hairsalonapi.dto.response.DataResponse;
+import com.rainofpainki.hairsalonapi.dto.response.PageableResponse;
 import com.rainofpainki.hairsalonapi.service.ShopService;
 import com.rainofpainki.hairsalonapi.util.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +23,12 @@ import java.util.NoSuchElementException;
 public class ShopController {
 
     @Autowired
-    private ShopService shopService;
+    private ShopService service;
 
     @GetMapping("")
     public ResponseEntity<PageableResponse> getShopList(PageRequest pageRequest) {
         Pageable pageable = pageRequest.of();
-        Page<ShopForList> shopList = shopService.getShopList(pageable);
+        Page<ShopForList> shopList = service.getShopList(pageable);
 
         PageableResponse response = PageableResponse.builder()
                 .code(HttpStatus.OK.value())
@@ -43,7 +43,7 @@ public class ShopController {
     public ResponseEntity<DataResponse> getShopInfo(@PathVariable("id") Long id) {
         DataResponse body = null;
         try {
-            ShopInfo shopInfo = shopService.getShopInfo(id);
+            ShopInfo shopInfo = service.getShopInfo(id);
             body = DataResponse.builder()
                     .code(HttpStatus.OK.value())
                     .httpStatus(HttpStatus.OK)

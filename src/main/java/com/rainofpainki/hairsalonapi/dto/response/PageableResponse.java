@@ -1,4 +1,4 @@
-package com.rainofpainki.hairsalonapi.response;
+package com.rainofpainki.hairsalonapi.dto.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

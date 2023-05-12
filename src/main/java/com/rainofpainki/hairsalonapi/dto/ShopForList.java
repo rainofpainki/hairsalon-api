@@ -1,12 +1,10 @@
 package com.rainofpainki.hairsalonapi.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.Map;
 
 @Data
-@Builder
 public class ShopForList {
     private Long shopId;
     private String shopName;

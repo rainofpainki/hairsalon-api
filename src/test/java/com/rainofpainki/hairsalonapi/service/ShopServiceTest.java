@@ -11,10 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @SpringBootTest
-public class ShopForListServiceTest {
+public class ShopServiceTest {
 
     @Autowired
-    private ShopService shopService;
+    private ShopService service;
 
     @Test
     public void should_get_shop_list() {
@@ -22,14 +22,14 @@ public class ShopForListServiceTest {
         pageRequest.setPage(1);
         pageRequest.setSize(2);
         Pageable pageable = pageRequest.of();
-        Page<ShopForList> shopList = shopService.getShopList(pageable);
+        Page<ShopForList> shopList = service.getShopList(pageable);
         Assertions.assertEquals(shopList.getSize(), 2);
         Assertions.assertEquals(shopList.getTotalElements(), 3);
     }
 
     @Test
     public void should_get_shop_info() {
-        ShopInfo shopInfo = shopService.getShopInfo(1L);
+        ShopInfo shopInfo = service.getShopInfo(1L);
         Assertions.assertEquals(shopInfo.getShop().getShopName(), "비롬헤어 정자본점");
         Assertions.assertEquals(shopInfo.getStylists().get(0).getStylistName(), "영우 디자이너");
         Assertions.assertEquals(shopInfo.getProcedures().get(0).getProcedureName(), "여성커트");

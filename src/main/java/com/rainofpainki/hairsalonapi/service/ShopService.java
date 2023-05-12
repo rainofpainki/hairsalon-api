@@ -5,6 +5,7 @@ import com.rainofpainki.hairsalonapi.entity.Procedure;
 import com.rainofpainki.hairsalonapi.entity.Shop;
 import com.rainofpainki.hairsalonapi.entity.Stylist;
 import com.rainofpainki.hairsalonapi.repository.ShopRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,23 +21,17 @@ import java.util.*;
 public class ShopService {
 
     @Autowired
-    ShopRepository repository;
+    private ShopRepository repository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Transactional(readOnly = true)
     public Page<ShopForList> getShopList(Pageable pageable) {
         Page<Shop> entities = repository.findAll(pageable);
         List<ShopForList> shopList = new ArrayList<>();
         for(Shop shop : entities) {
-            shopList.add(
-                ShopForList.builder()
-                        .shopId(shop.getShopId())
-                        .shopName(shop.getShopName())
-                        .shopThumbUrl(shop.getShopThumbUrl())
-                        .shopAddress(shop.getShopAddress())
-                        .shopBusinessHours(this.getBusinessHours(shop))
-                        .shopTelNumber(shop.getShopTelNumber())
-                        .build()
-            );
+            shopList.add(modelMapper.map(shop, ShopForList.class));
         }
         return new PageImpl<>(shopList, pageable, entities.getTotalElements());
     }
@@ -47,40 +42,21 @@ public class ShopService {
         Shop shopEntity = shopOptional.orElseThrow(() -> new NoSuchElementException());
 
         // 헤어샵 정보
-        ShopForShopInfo shop = ShopForShopInfo.builder()
-                .shopId(shopEntity.getShopId())
-                .shopName(shopEntity.getShopName())
-                .shopThumbUrl(shopEntity.getShopThumbUrl())
-                .shopAddress(shopEntity.getShopAddress())
-                .shopBusinessHours(this.getBusinessHours(shopEntity))
-                .shopTelNumber(shopEntity.getShopTelNumber())
-                .shopMessage(shopEntity.getShopMessage())
-                .build();
+        ShopForShopInfo shop = modelMapper.map(shopEntity, ShopForShopInfo.class);
+        shop.setShopBusinessHours(this.getBusinessHours(shopEntity));
 
         // 시술 정보
         List<ProcedureForShopInfo> procedures = new ArrayList<>();
         List<Procedure> procedureEntities = shopEntity.getProcedures();
         for(Procedure procedureEntity : procedureEntities) {
-            procedures.add(ProcedureForShopInfo.builder()
-                    .procedureId(procedureEntity.getProcedureId())
-                    .procedureName(procedureEntity.getProcedureName())
-                    .procedurePrice(procedureEntity.getProcedurePrice())
-                    .procedureHours(procedureEntity.getProcedureHours())
-                    .build()
-            );
+            procedures.add(modelMapper.map(procedureEntity, ProcedureForShopInfo.class));
         }
 
         // 스타일리스트 정보
         List<StylistForShopInfo> stylists = new ArrayList<>();
         List<Stylist> stylistEntities = shopEntity.getStylists();
         for(Stylist stylistEntity : stylistEntities) {
-            stylists.add(StylistForShopInfo.builder()
-                    .stylistId(stylistEntity.getStylistId())
-                    .stylistName(stylistEntity.getStylistName())
-                    .stylistMessage(stylistEntity.getStylistMessage())
-                    .stylistThumbUrl(stylistEntity.getStylistThumbUrl())
-                    .build()
-            );
+            stylists.add(modelMapper.map(stylistEntity, StylistForShopInfo.class));
         }
 
         return ShopInfo.builder()
