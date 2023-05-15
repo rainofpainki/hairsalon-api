@@ -39,7 +39,7 @@ public class ReservationController {
             response = ResultResponse.builder()
                     .code(HttpStatus.OK.value())
                     .httpStatus(HttpStatus.OK)
-                    .message("success")
+                    .message("에약이 완료되었습니다.")
                     .result(saved instanceof Reservation)
                     .build();
         }catch (ParseException | NoSuchElementException e) {

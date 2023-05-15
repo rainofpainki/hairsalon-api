@@ -20,7 +20,7 @@ public class Procedure {
     private Long procedureId;
     private String procedureName;
     private Integer procedurePrice;
-    private Integer procedureHours;
+    private Integer procedureMinutes;
 
     @ManyToOne
     @JoinColumn(name = "SHOP_ID")

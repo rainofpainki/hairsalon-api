@@ -6,12 +6,12 @@ import com.rainofpainki.hairsalonapi.entity.Reservation;
 import com.rainofpainki.hairsalonapi.entity.Shop;
 import com.rainofpainki.hairsalonapi.entity.Stylist;
 import com.rainofpainki.hairsalonapi.repository.ReservationRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
 
 @Service
@@ -20,17 +20,20 @@ public class ReservationService {
     @Autowired
     private ReservationRepository repository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
     public Reservation mapToEntity(ReservationRequest request, Long userId) throws ParseException {
         Shop shop = repository.getShop(request.getShopId()).orElseThrow(() -> new NoSuchElementException());
         Stylist stylist = repository.getStylist(request.getStylistId()).orElseThrow(() -> new NoSuchElementException());
         Procedure procedure = repository.getProcedure(request.getProcedureId()).orElseThrow(() -> new NoSuchElementException());
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime reservationStartTime = LocalDateTime.parse(request.getReservationDate() + " " + request.getReservationTime(), formatter);
+        LocalDateTime reservationEndTime = reservationStartTime.plusMinutes(procedure.getProcedureMinutes());
+
+
         return Reservation.builder()
-                .reservationDatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(request.getReservationDate() + " " + request.getReservationTime()))
-                .reservationHours(procedure.getProcedureHours())
+                .reservationStartTime(reservationStartTime)
+                .reservationEndTime(reservationEndTime)
+                .reservationMinutes(procedure.getProcedureMinutes())
                 .reservationShopName(shop.getShopName())
                 .reservationStylistName(stylist.getStylistName())
                 .reservationProcedureName(procedure.getProcedureName())

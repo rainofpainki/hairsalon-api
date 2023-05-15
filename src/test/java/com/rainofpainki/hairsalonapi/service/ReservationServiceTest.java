@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 @SpringBootTest
 public class ReservationServiceTest {
@@ -31,6 +31,7 @@ public class ReservationServiceTest {
         Reservation reservation = service.mapToEntity(request, userId);
         Reservation saved = service.save(reservation);
 
-        Assertions.assertEquals(saved.getReservationDatetime(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2023-05-12 10:00:00"));
+        Assertions.assertEquals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(saved.getReservationStartTime()), "2023-05-12 10:00");
+        Assertions.assertEquals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(saved.getReservationEndTime()), "2023-05-12 10:30");
     }
 }

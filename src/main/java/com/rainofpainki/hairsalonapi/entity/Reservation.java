@@ -3,7 +3,7 @@ package com.rainofpainki.hairsalonapi.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -17,8 +17,9 @@ public class Reservation {
     @GeneratedValue(generator = "reservation_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "reservation_seq", allocationSize = 1, sequenceName = "RESERVATION_SEQ")
     private Long reservationId;
-    private Date reservationDatetime;
-    private Integer reservationHours;
+    private LocalDateTime reservationStartTime;
+    private LocalDateTime reservationEndTime;
+    private Integer reservationMinutes;
     private String reservationShopName;
     private String reservationStylistName;
     private String reservationProcedureName;
