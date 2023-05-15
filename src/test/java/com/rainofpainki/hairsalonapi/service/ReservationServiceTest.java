@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @SpringBootTest
 public class ReservationServiceTest {
@@ -33,5 +34,36 @@ public class ReservationServiceTest {
 
         Assertions.assertEquals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(saved.getReservationStartTime()), "2023-05-12 10:00");
         Assertions.assertEquals(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(saved.getReservationEndTime()), "2023-05-12 10:30");
+    }
+
+    @Test
+    @Transactional
+    public void should_check_reservation() throws ParseException {
+        ReservationRequest request = new ReservationRequest();
+        request.setShopId(1L);
+        request.setProcedureId(1L);
+        request.setStylistId(1L);
+        request.setReservationDate("2023-05-13");
+        request.setReservationTime("14:00");
+        service.save(service.mapToEntity(request, 1L));
+
+        ReservationRequest request2 = new ReservationRequest();
+        request2.setShopId(1L);
+        request2.setProcedureId(1L);
+        request2.setStylistId(1L);
+        request2.setReservationDate("2023-05-13");
+        request2.setReservationTime("14:25");
+        Optional<Reservation> optional = service.checkReservationTime(request2);
+
+        Assertions.assertTrue(optional.isPresent());
+
+        ReservationRequest request3 = new ReservationRequest();
+        request3.setShopId(1L);
+        request3.setProcedureId(1L);
+        request3.setStylistId(1L);
+        request3.setReservationDate("2023-05-13");
+        request3.setReservationTime("13:50");
+        Optional<Reservation> optional2 = service.checkReservationTime(request3);
+        Assertions.assertTrue(optional2.isPresent());
     }
 }

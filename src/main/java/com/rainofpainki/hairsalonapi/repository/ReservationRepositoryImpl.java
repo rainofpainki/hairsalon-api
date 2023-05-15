@@ -2,14 +2,17 @@ package com.rainofpainki.hairsalonapi.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.rainofpainki.hairsalonapi.entity.Procedure;
+import com.rainofpainki.hairsalonapi.entity.Reservation;
 import com.rainofpainki.hairsalonapi.entity.Shop;
 import com.rainofpainki.hairsalonapi.entity.Stylist;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static com.rainofpainki.hairsalonapi.entity.QProcedure.procedure;
+import static com.rainofpainki.hairsalonapi.entity.QReservation.reservation;
 import static com.rainofpainki.hairsalonapi.entity.QShop.shop;
 import static com.rainofpainki.hairsalonapi.entity.QStylist.stylist;
 
@@ -32,5 +35,14 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
     public Optional<Procedure> getProcedure(Long procedureId) {
         return Optional.ofNullable(queryFactory.selectFrom(procedure).where(procedure.procedureId.eq(procedureId)).fetchOne());
+    }
+
+    public Optional<Reservation> stylistHasReservationForTime(Long stylistId, LocalDateTime time) {
+        return Optional.ofNullable(queryFactory.selectFrom(reservation).where(
+                    reservation.stylist.stylistId.eq(stylistId),
+                    reservation.reservationStartTime.loe(time),
+                    reservation.reservationEndTime.goe(time)
+                ).fetchOne()
+        );
     }
 }

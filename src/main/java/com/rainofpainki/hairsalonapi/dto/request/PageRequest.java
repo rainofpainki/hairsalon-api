@@ -1,4 +1,4 @@
-package com.rainofpainki.hairsalonapi.util;
+package com.rainofpainki.hairsalonapi.dto.request;
 
 import org.springframework.data.domain.Sort;
 

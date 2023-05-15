@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -25,8 +25,7 @@ public class ReservationService {
         Stylist stylist = repository.getStylist(request.getStylistId()).orElseThrow(() -> new NoSuchElementException());
         Procedure procedure = repository.getProcedure(request.getProcedureId()).orElseThrow(() -> new NoSuchElementException());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime reservationStartTime = LocalDateTime.parse(request.getReservationDate() + " " + request.getReservationTime(), formatter);
+        LocalDateTime reservationStartTime = request.getReservationStartTime();
         LocalDateTime reservationEndTime = reservationStartTime.plusMinutes(procedure.getProcedureMinutes());
 
 
@@ -43,10 +42,17 @@ public class ReservationService {
                 .procedure(procedure)
                 .price(procedure.getProcedurePrice())
                 .build();
-
     }
 
     public Reservation save(Reservation reservation) {
         return repository.saveAndFlush(reservation);
+    }
+
+    public Optional<Reservation> checkReservationTime(ReservationRequest request) {
+        Procedure procedure = repository.getProcedure(request.getProcedureId()).orElseThrow(() -> new NoSuchElementException());
+        LocalDateTime reservationStartTime = request.getReservationStartTime();
+        LocalDateTime reservationEndTime = reservationStartTime.plusMinutes(procedure.getProcedureMinutes());
+        Optional<Reservation> optionalStartTime = repository.stylistHasReservationForTime(request.getStylistId(), reservationStartTime);
+        return ( optionalStartTime.isPresent() ? optionalStartTime : repository.stylistHasReservationForTime(request.getStylistId(), reservationEndTime) );
     }
 }

@@ -2,7 +2,7 @@ package com.rainofpainki.hairsalonapi.service;
 
 import com.rainofpainki.hairsalonapi.dto.ShopForList;
 import com.rainofpainki.hairsalonapi.dto.ShopInfo;
-import com.rainofpainki.hairsalonapi.util.PageRequest;
+import com.rainofpainki.hairsalonapi.dto.request.PageRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

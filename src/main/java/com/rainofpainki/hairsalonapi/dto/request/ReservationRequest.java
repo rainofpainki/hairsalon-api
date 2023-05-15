@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -21,4 +24,9 @@ public class ReservationRequest {
     private String reservationDate;
     @NotNull
     private String reservationTime;
+
+    public LocalDateTime getReservationStartTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(this.getReservationDate() + " " + this.getReservationTime(), formatter);
+    }
 }

@@ -2,10 +2,10 @@ package com.rainofpainki.hairsalonapi.controller;
 
 import com.rainofpainki.hairsalonapi.dto.ShopForList;
 import com.rainofpainki.hairsalonapi.dto.ShopInfo;
+import com.rainofpainki.hairsalonapi.dto.request.PageRequest;
 import com.rainofpainki.hairsalonapi.dto.response.DataResponse;
 import com.rainofpainki.hairsalonapi.dto.response.PageableResponse;
 import com.rainofpainki.hairsalonapi.service.ShopService;
-import com.rainofpainki.hairsalonapi.util.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
