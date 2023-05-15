@@ -1,15 +1,22 @@
 package com.rainofpainki.hairsalonapi.service;
 
+import com.rainofpainki.hairsalonapi.dto.ReservationForList;
+import com.rainofpainki.hairsalonapi.dto.request.PageRequest;
 import com.rainofpainki.hairsalonapi.dto.request.ReservationRequest;
 import com.rainofpainki.hairsalonapi.entity.Reservation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -65,5 +72,28 @@ public class ReservationServiceTest {
         request3.setReservationTime("13:50");
         Optional<Reservation> optional2 = service.checkReservationTime(request3);
         Assertions.assertTrue(optional2.isPresent());
+    }
+
+    public void should_get_my_reservation_list() throws ParseException {
+        Long userId = 1L;
+        List<String> times = new ArrayList<>(Arrays.asList("09:00", "10:10", "11:00", "11:40", "14:00"));
+        for(String time : times) {
+            ReservationRequest request = new ReservationRequest();
+            request.setShopId(1L);
+            request.setProcedureId(1L);
+            request.setStylistId(1L);
+            request.setReservationDate("2023-05-15");
+            request.setReservationTime(time);
+            service.save(service.mapToEntity(request, userId));
+        }
+
+        PageRequest pageRequest = new PageRequest();
+        pageRequest.setPage(1);
+        pageRequest.setSize(2);
+        Pageable pageable = pageRequest.of();
+        Page<ReservationForList> reservationList = service.getReservationListByUser(pageable, userId);
+
+        Assertions.assertEquals(reservationList.getSize(), 2);
+        Assertions.assertEquals(reservationList.getTotalElements(), 5);
     }
 }

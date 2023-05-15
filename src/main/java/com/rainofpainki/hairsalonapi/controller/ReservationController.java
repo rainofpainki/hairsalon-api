@@ -1,12 +1,17 @@
 package com.rainofpainki.hairsalonapi.controller;
 
+import com.rainofpainki.hairsalonapi.dto.ReservationForList;
+import com.rainofpainki.hairsalonapi.dto.request.PageRequest;
 import com.rainofpainki.hairsalonapi.dto.request.ReservationRequest;
+import com.rainofpainki.hairsalonapi.dto.response.PageableResponse;
 import com.rainofpainki.hairsalonapi.dto.response.ResultResponse;
 import com.rainofpainki.hairsalonapi.entity.Reservation;
 import com.rainofpainki.hairsalonapi.repository.ShopRepository;
 import com.rainofpainki.hairsalonapi.service.ReservationService;
 import com.rainofpainki.hairsalonapi.validator.ReservationSaveValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +39,7 @@ public class ReservationController {
     @Autowired
     private ReservationSaveValidator reservationSaveValidator;
 
-    @InitBinder
+    @InitBinder("ReservationRequest")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(reservationSaveValidator);
     }
@@ -74,5 +79,19 @@ public class ReservationController {
         }
 
         return (response == null ? ResponseEntity.status(HttpStatus.BAD_REQUEST) : ResponseEntity.ok()).body(response);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<PageableResponse> getMyReservationList(PageRequest pageRequest, @RequestHeader(name = HEADER_USER_ID) Long userId) {
+        Pageable pageable = pageRequest.of();
+        Page<ReservationForList> reservationList = service.getReservationListByUser(pageable, userId);
+
+        PageableResponse response = PageableResponse.builder()
+                .code(HttpStatus.OK.value())
+                .httpStatus(HttpStatus.OK)
+                .message("success")
+                .data(reservationList)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

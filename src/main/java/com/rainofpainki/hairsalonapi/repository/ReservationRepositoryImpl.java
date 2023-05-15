@@ -5,10 +5,14 @@ import com.rainofpainki.hairsalonapi.entity.Procedure;
 import com.rainofpainki.hairsalonapi.entity.Reservation;
 import com.rainofpainki.hairsalonapi.entity.Shop;
 import com.rainofpainki.hairsalonapi.entity.Stylist;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static com.rainofpainki.hairsalonapi.entity.QProcedure.procedure;
@@ -44,5 +48,21 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                     reservation.reservationEndTime.goe(time)
                 ).fetchOne()
         );
+    }
+
+    public Page<Reservation> findAllByUserId(Pageable pageable, Long userId) {
+        List<Reservation> reservationList = queryFactory
+                .selectFrom(reservation)
+                .where(reservation.userId.eq(userId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Long count = queryFactory.select(reservation.count())
+                .from(reservation)
+                .where(reservation.userId.eq(userId))
+                .fetchOne();
+
+        return new PageImpl<>(reservationList, pageable, count);
     }
 }
