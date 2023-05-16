@@ -2,7 +2,7 @@
 
 ## 헤어샵 예약 API
 
-> Spring Boot를 이용해서 RESTful Web Services 애플리케이션을 개발 과정을 학습하기 위해 작성된 프로젝트입니다.
+> Spring Boot를 이용해서 RESTful Web Services 애플리케이션 개발 과정을 학습하기 위해 작성된 프로젝트입니다.
 
 ## 요구사항
 
