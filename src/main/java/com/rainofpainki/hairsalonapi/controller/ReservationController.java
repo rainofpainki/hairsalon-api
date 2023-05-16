@@ -39,7 +39,7 @@ public class ReservationController {
     @Autowired
     private ReservationSaveValidator reservationSaveValidator;
 
-    @InitBinder("ReservationRequest")
+    @InitBinder("reservationRequest")
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(reservationSaveValidator);
     }
@@ -48,7 +48,7 @@ public class ReservationController {
     @Transactional
     public ResponseEntity<ResultResponse> save(
             @RequestHeader(name = HEADER_USER_ID) Long userId,
-            @RequestBody @Validated ReservationRequest request,
+            @Validated @RequestBody ReservationRequest reservationRequest,
             BindingResult bindingResult
     ) {
         ResultResponse response = null;
@@ -65,7 +65,7 @@ public class ReservationController {
         }
 
         try {
-            Reservation reservation = service.mapToEntity(request, userId);
+            Reservation reservation = service.mapToEntity(reservationRequest, userId);
             Reservation saved = service.save(reservation);
 
             response = ResultResponse.builder()
