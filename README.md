@@ -251,11 +251,11 @@
 
 ## 테스트
 
-### Shop
+### [Shop](./src/test/java/com/rainofpainki/hairsalonapi/service/ShopServiceTest.java)
 - should_get_shop_list() : 헤어샵 목록 조회 테스트
 - should_get_shop_info() : 헤어샵 정보 조회 테스트
 
-### Reservation
+### [Reservation](./src/test/java/com/rainofpainki/hairsalonapi/service/ReservationServiceTest.java)
 - should_save_reservation() : 헤어샵 예약 테스트
 - should_check_reservation() : 헤어샵 예약시간 중복 검사 테스트
 - should_get_my_reservation_list() : 나의 예약 목록 조회 테스트
