@@ -4,7 +4,7 @@
 
 > Spring Boot를 이용해서 RESTful Web Services 애플리케이션을 개발 과정을 학습하기 위해 작성된 프로젝트입니다.
 
-## API 요구사항
+## 요구사항
 
 이 [문서](./REQUIREMENTS.md)를 참고해주세요.
 
