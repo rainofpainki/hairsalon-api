@@ -4,18 +4,9 @@
 
 > Spring Boot를 이용해서 RESTful Web Services 애플리케이션을 개발 과정을 학습하기 위해 작성된 프로젝트입니다.
 
-## [요구사항](./REQUIREMENTS.md)
+## [API 요구사항](./REQUIREMENTS.md)
 
-## API 문서
-
-***HTTP Status***
-
-| Code | Description       |
-|------|-------------------|
-| 200  | 정상 응답             |
-| 400  | 요청 값 오류           |
-| 404  | 헤어샵 정보를 찾지 못함     |
-| 409  | 해당 시간에 이미 예약이 존재함 |
+## API 
 
 ### 헤어샵 목록 보기
 
@@ -248,6 +239,17 @@
     }
 }
 ```
+## API HTTP 상태 코드
+
+| Code | Description       |
+|------|-------------------|
+| 200  | 정상 응답             |
+| 400  | 요청 값 오류           |
+| 404  | 헤어샵 정보를 찾지 못함     |
+| 409  | 해당 시간에 이미 예약이 존재함 |
+
+## DB 설계
+![image](https://github.com/rainofpainki/hairsalon-api/assets/8243179/d4b4bcf9-f472-441e-8013-33d69c5cc91d)
 
 ## 테스트
 
@@ -257,5 +259,5 @@
 
 ### [Reservation](./src/test/java/com/rainofpainki/hairsalonapi/service/ReservationServiceTest.java)
 - should_save_reservation() : 헤어샵 예약 테스트
-- should_check_reservation() : 헤어샵 예약시간 중복 검사 테스트
+- should_check_reservation() : 헤어샵 예약시간 중복 테스트
 - should_get_my_reservation_list() : 나의 예약 목록 조회 테스트
