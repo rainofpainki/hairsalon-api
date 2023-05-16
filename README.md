@@ -4,9 +4,11 @@
 
 > Spring Boot를 이용해서 RESTful Web Services 애플리케이션을 개발 과정을 학습하기 위해 작성된 프로젝트입니다.
 
-## [API 요구사항](./REQUIREMENTS.md)
+## API 요구사항
 
-## API 
+이 [문서](./REQUIREMENTS.md)를 참고해주세요.
+
+## API Doc
 
 ### 헤어샵 목록 보기
 
@@ -239,7 +241,7 @@
     }
 }
 ```
-## API HTTP 상태 코드
+## HTTP Status
 
 | Code | Description       |
 |------|-------------------|
@@ -248,10 +250,10 @@
 | 404  | 헤어샵 정보를 찾지 못함     |
 | 409  | 해당 시간에 이미 예약이 존재함 |
 
-## DB 설계
+## ERD
 ![image](https://github.com/rainofpainki/hairsalon-api/assets/8243179/d4b4bcf9-f472-441e-8013-33d69c5cc91d)
 
-## 테스트
+## Test
 
 ### [Shop](./src/test/java/com/rainofpainki/hairsalonapi/service/ShopServiceTest.java)
 - should_get_shop_list() : 헤어샵 목록 조회 테스트
